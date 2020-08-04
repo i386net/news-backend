@@ -4,7 +4,7 @@
   "description": "Backend for Yandex.Praktikum NewsExplorer project",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js",
+    "dev": "nodemon -r dotenv/config app.js",
     "start": "node app.js"
   },
   "repository": {
