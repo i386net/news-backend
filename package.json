@@ -1,0 +1,22 @@
+{
+  "name": "news-backend",
+  "version": "1.0.0",
+  "description": "Backend for Yandex.Praktikum NewsExplorer project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/i386net/news-backend.git"
+  },
+  "keywords": [
+    "newsexplorer"
+  ],
+  "author": "DK",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/i386net/news-backend/issues"
+  },
+  "homepage": "https://github.com/i386net/news-backend#readme"
+}
