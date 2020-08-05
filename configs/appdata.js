@@ -11,6 +11,17 @@ const dbOptions = {
   useUnifiedTopology: true,
   connectTimeoutMS: 0,
 };
+const urlValidationOptions = {
+  protocols: ['http', 'https'],
+  require_protocol: true,
+  require_host: true,
+  require_valid_protocol: true,
+  allow_underscores: true,
+  allow_trailing_dot: false,
+};
+const emailValidationOptions = {
+  require_tld: true,
+};
 
 if (NODE_ENV !== 'production') {
   webAddress = 'http://localhost' || WEB_HOST;
@@ -19,5 +30,5 @@ if (NODE_ENV !== 'production') {
 }
 
 module.exports = {
-  webAddress, port, dbAddress, dbOptions,
+  webAddress, port, dbAddress, dbOptions, urlValidationOptions, emailValidationOptions,
 };
