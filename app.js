@@ -7,9 +7,10 @@ const cookeParser = require('cookie-parser');
 const {
   webAddress, port, dbAddress, dbOptions,
 } = require('./configs/appdata.js');
-const { dbConnectionError } = require('./configs/messages.js');
 const { errorsHandler } = require('./middlewares/errorsHandler');
 const { NotFoundError } = require('./errors/errors');
+const { createUser, login } = require('./controllers/users');
+const { statusMessage } = require('./configs/messages');
 
 const app = express();
 
@@ -19,16 +20,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookeParser());
 mongoose.connect(dbAddress, dbOptions)
   .then(() => console.log(`DB connection on: ${dbAddress}`))
-  .catch(() => new Error(dbConnectionError));
+  .catch(() => new Error(statusMessage.dbConnectionError));
 
 // --- routres ----
-
+app.post('/signup', createUser);
+app.post('/signin', login);
 // --- end routes ----
 
 // --- logger and joi errors --
 
 app.use('*', (req, res, next) => {
-  next(new NotFoundError('Ресурс не найден.'));
+  next(new NotFoundError(statusMessage.resourseNotFoundError));
 });
 app.use(errorsHandler);
 
