@@ -8,6 +8,8 @@ const {
   webAddress, port, dbAddress, dbOptions,
 } = require('./configs/appdata.js');
 const { dbConnectionError } = require('./configs/messages.js');
+const { errorsHandler } = require('./middlewares/errorsHandler');
+const { NotFoundError } = require('./errors/errors');
 
 const app = express();
 
@@ -17,6 +19,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookeParser());
 mongoose.connect(dbAddress, dbOptions)
   .then(() => console.log(`DB connection on: ${dbAddress}`))
-  .catch(() => new Error(dbConnectionError)); // todo вынести в словарь !
+  .catch(() => new Error(dbConnectionError));
 
-app.listen(port, () => console.log(`Server in listening on: ${webAddress}:${port}`));
+// --- routres ----
+
+// --- end routes ----
+
+// --- logger and joi errors --
+
+app.use('*', (req, res, next) => {
+  next(new NotFoundError('Ресурс не найден.'));
+});
+app.use(errorsHandler);
+
+app.listen(port, () => console.log(`Server is listening on: ${webAddress}:${port}`));
