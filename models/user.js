@@ -26,7 +26,13 @@ const userSchema = new mongoose.Schema({
     required: true,
     select: false,
   },
-});
+  articles: [{
+    type: mongoose.Schema.ObjectID,
+    ref: 'article',
+    default: [],
+  }],
+},
+{ timestamps: true });
 
 userSchema.statics.findUserByCredentials = function (email, password) {
   return this.findOne({ email })
