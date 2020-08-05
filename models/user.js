@@ -10,7 +10,6 @@ const userSchema = new mongoose.Schema({
     minlength: [2, 'Минимальная длина имени 2 символа'],
     maxlength: [30, 'Максимальная длина имени 30 символов'],
     required: true,
-
   },
   email: {
     type: String,
@@ -27,7 +26,7 @@ const userSchema = new mongoose.Schema({
     select: false,
   },
   articles: [{
-    type: mongoose.Schema.ObjectID,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'article',
     default: [],
   }],
