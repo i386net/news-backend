@@ -6,6 +6,7 @@ const {
 } = require('../errors/errors');
 const { key } = require('../configs/jwtdata.js');
 const { statusMessage } = require('../configs/messages');
+const { NotFoundError } = require('../errors/errors');
 
 const createUser = (req, res, next) => {
   const { name, email, password } = req.body;
@@ -34,7 +35,6 @@ const createUser = (req, res, next) => {
 
 const login = (req, res, next) => User.findUserByCredentials(req.body.email, req.body.password)
   .then((user) => {
-    console.log(process.env.NODE_ENV, process.env.JWT_SECRET, key);
     const token = jwt.sign({ _id: user._id }, key, { expiresIn: '7d' });
     res.cookie('jwt', token, {
       maxAge: 3600000 * 24 * 7,
@@ -46,4 +46,12 @@ const login = (req, res, next) => User.findUserByCredentials(req.body.email, req
   })
   .catch(() => next(new UnauthorizedError(statusMessage.userAuthError)));
 
-module.exports = { createUser, login };
+const getUser = (req, res, next) => {
+  console.log();
+  User.findById(req.user._id)
+    .orFail(new NotFoundError(statusMessage.userNotFound))
+    .then((user) => res.send({ name: user.name, email: user.email }))
+    .catch(next);
+};
+
+module.exports = { createUser, login, getUser };
