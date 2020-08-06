@@ -34,10 +34,10 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  owner: {
-    type: mongoose.Schema.Types.ObjectID,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
-    default: [],
+    required: true,
   },
 },
 { timestamps: true });
