@@ -4,7 +4,7 @@ const User = require('../models/user');
 const {
   ConflictError, BadRequestError, UnauthorizedError,
 } = require('../errors/errors');
-const key = require('../configs/jwtdata.js');
+const { key } = require('../configs/jwtdata.js');
 const { statusMessage } = require('../configs/messages');
 
 const createUser = (req, res, next) => {
@@ -34,7 +34,7 @@ const createUser = (req, res, next) => {
 
 const login = (req, res, next) => User.findUserByCredentials(req.body.email, req.body.password)
   .then((user) => {
-    console.log(user);
+    console.log(process.env.NODE_ENV, process.env.JWT_SECRET, key);
     const token = jwt.sign({ _id: user._id }, key, { expiresIn: '7d' });
     res.cookie('jwt', token, {
       maxAge: 3600000 * 24 * 7,
