@@ -34,6 +34,11 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  owner: {
+    type: mongoose.Schema.Types.ObjectID,
+    ref: 'user',
+    default: [],
+  },
 },
 { timestamps: true });
 
