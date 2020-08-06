@@ -9,6 +9,7 @@ const {
 } = require('./configs/appdata.js');
 const { wrongUrlHandler } = require('./middlewares/wrongUrlHandler');
 const { errorsHandler } = require('./middlewares/errorsHandler');
+const { requestsLogger, errorsLogger } = require('./middlewares/logger');
 const { createUser, login } = require('./controllers/users');
 const { statusMessage } = require('./configs/messages');
 const { userRouter } = require('./routes/index.js');
@@ -23,16 +24,18 @@ app.use(cookeParser());
 mongoose.connect(dbAddress, dbOptions)
   .then(() => console.log(`DB connection on: ${dbAddress}`))
   .catch(() => new Error(statusMessage.dbConnectionError));
+app.use(requestsLogger);
 
-// --- routres ----
 app.post('/signup', celebrate(signupValidationOptions), createUser);
 app.post('/signin', celebrate(signinValidationOptions), login);
-// -- auth --
 app.use(auth);
 app.use('/users', userRouter);
+// --- article routes ---
+
 // --- end routes ----
 
 // --- logger and joi errors --
+app.use(errorsLogger);
 app.use(errors());
 
 app.use('*', wrongUrlHandler);
