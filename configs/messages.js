@@ -1,7 +1,4 @@
 const joiMessage = {
-  nameMin: 'Название должно быть не менее {#limit} знаков',
-  nameMax: 'Название должно быть не более {#limit} знаков',
-  nameEmpty: 'Название не может быть пустым',
   incorrectURL: 'Некорректная ссылка',
   urlRequired: 'Ссылка обязательное поле',
   emptyURL: 'Ссылка не может быть пустой',
@@ -11,9 +8,12 @@ const joiMessage = {
   userNameMin: 'В имени должно быть не менее {#limit} знаков',
   userNameMax: 'В имени должно быть не более {#limit} знаков',
   userNameEmpty: 'Имя не может быть пустым',
-  emptyParam: 'Поле не может быть пустым',
-  requiredParam: 'Обязательное поле',
+  emptyParam: 'Поля не могут быть пустыми',
+  requiredParam: 'Все поля обязательные',
   emailNotValid: 'Данный адрес не является электронной почтой',
+  passwordAlphaNum: 'Пароль должен содержать буквы и/или цифры',
+  passwordMin: 'В пароле должно быть не менее {#limit} знаков',
+  passwordMax: 'В пароле должно быть не более {#limit} знаков',
 
 };
 const statusMessage = {
