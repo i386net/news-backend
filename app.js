@@ -7,8 +7,8 @@ const cookeParser = require('cookie-parser');
 const {
   webAddress, port, dbAddress, dbOptions,
 } = require('./configs/appdata.js');
+const { wrongUrlHandler } = require('./middlewares/wrongUrlHandler');
 const { errorsHandler } = require('./middlewares/errorsHandler');
-const { NotFoundError } = require('./errors/errors');
 const { createUser, login } = require('./controllers/users');
 const { statusMessage } = require('./configs/messages');
 
@@ -25,13 +25,13 @@ mongoose.connect(dbAddress, dbOptions)
 // --- routres ----
 app.post('/signup', createUser);
 app.post('/signin', login);
+// -- auth --
+
 // --- end routes ----
 
 // --- logger and joi errors --
 
-app.use('*', (req, res, next) => {
-  next(new NotFoundError(statusMessage.resourseNotFoundError));
-});
+app.use('*', wrongUrlHandler);
 app.use(errorsHandler);
 
 app.listen(port, () => console.log(`Server is listening on: ${webAddress}:${port}`));
