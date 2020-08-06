@@ -12,7 +12,7 @@ const convertTimeZone = winston.format((info, opts) => {
 const requestsLogger = expressWinston.logger({
   transports: [new winston.transports.DailyRotateFile({
     filename: path.join(__dirname, '..', 'logs', 'requests-%DATE%.log'),
-    datePattern: 'YYYY-MM-DD-HH',
+    datePattern: 'YYYY-MM-DD',
     level: 'info',
     maxsize: '2m',
     maxFiles: '7d',
@@ -27,7 +27,7 @@ const requestsLogger = expressWinston.logger({
 const errorsLogger = expressWinston.errorLogger({
   transports: [new winston.transports.DailyRotateFile({
     filename: path.join(__dirname, '..', 'logs', 'errors-%DATE%.log'),
-    datePattern: 'YYYY-MM-DD-HH',
+    datePattern: 'YYYY-MM-DD',
     level: 'error',
     maxsize: '2m',
     maxFiles: '7d',
