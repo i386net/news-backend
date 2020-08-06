@@ -2,10 +2,10 @@ const express = require('express');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-// const { celebrate, errors, JOI } = require('celebrate');
+const { celebrate, errors } = require('celebrate');
 const cookeParser = require('cookie-parser');
 const {
-  webAddress, port, dbAddress, dbOptions,
+  webAddress, port, dbAddress, dbOptions, signupValidationOptions, signinValidationOptions,
 } = require('./configs/appdata.js');
 const { wrongUrlHandler } = require('./middlewares/wrongUrlHandler');
 const { errorsHandler } = require('./middlewares/errorsHandler');
@@ -25,15 +25,15 @@ mongoose.connect(dbAddress, dbOptions)
   .catch(() => new Error(statusMessage.dbConnectionError));
 
 // --- routres ----
-app.post('/signup', createUser);
-app.post('/signin', login);
-
+app.post('/signup', celebrate(signupValidationOptions), createUser);
+app.post('/signin', celebrate(signinValidationOptions), login);
 // -- auth --
 app.use(auth);
 app.use('/users', userRouter);
 // --- end routes ----
 
 // --- logger and joi errors --
+app.use(errors());
 
 app.use('*', wrongUrlHandler);
 app.use(errorsHandler);
