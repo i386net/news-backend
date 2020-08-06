@@ -1,4 +1,5 @@
 const winston = require('winston');
+require('winston-daily-rotate-file');
 const expressWinston = require('express-winston');
 const moment = require('moment-timezone');
 const path = require('path');
@@ -9,12 +10,13 @@ const convertTimeZone = winston.format((info, opts) => {
   return info;
 });
 const requestsLogger = expressWinston.logger({
-  transports: [new winston.transports.File({
-    filename: path.join(__dirname, '..', 'logs', 'requests.log'),
+  transports: [new winston.transports.DailyRotateFile({
+    filename: path.join(__dirname, '..', 'logs', 'requests-%DATE%.log'),
+    datePattern: 'YYYY-MM-DD-HH',
     level: 'info',
-    maxsize: 100000,
-    maxFiles: 3,
-    tailable: true,
+    maxsize: '2m',
+    maxFiles: '7d',
+    zippedArchive: true,
   })],
   format: winston.format.combine(
     convertTimeZone({ tz: 'Europe/Moscow' }),
@@ -23,12 +25,13 @@ const requestsLogger = expressWinston.logger({
 });
 
 const errorsLogger = expressWinston.errorLogger({
-  transports: [new winston.transports.File({
-    filename: path.join(__dirname, '..', 'logs', 'errors.log'),
+  transports: [new winston.transports.DailyRotateFile({
+    filename: path.join(__dirname, '..', 'logs', 'errors-%DATE%.log'),
+    datePattern: 'YYYY-MM-DD-HH',
     level: 'error',
-    maxsize: 100000,
-    maxFiles: 3,
-    tailable: true,
+    maxsize: '2m',
+    maxFiles: '7d',
+    zippedArchive: true,
   })],
   format: winston.format.combine(
     convertTimeZone({ tz: 'Europe/Moscow' }),
