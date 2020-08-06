@@ -11,6 +11,8 @@ const { wrongUrlHandler } = require('./middlewares/wrongUrlHandler');
 const { errorsHandler } = require('./middlewares/errorsHandler');
 const { createUser, login } = require('./controllers/users');
 const { statusMessage } = require('./configs/messages');
+const { userRouter } = require('./routes/index.js');
+const auth = require('./middlewares/auth');
 
 const app = express();
 
@@ -25,8 +27,10 @@ mongoose.connect(dbAddress, dbOptions)
 // --- routres ----
 app.post('/signup', createUser);
 app.post('/signin', login);
-// -- auth --
 
+// -- auth --
+app.use(auth);
+app.use('/users', userRouter);
 // --- end routes ----
 
 // --- logger and joi errors --
