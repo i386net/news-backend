@@ -12,7 +12,7 @@ const { errorsHandler } = require('./middlewares/errorsHandler');
 const { requestsLogger, errorsLogger } = require('./middlewares/logger');
 const { createUser, login } = require('./controllers/users');
 const { statusMessage } = require('./configs/messages');
-const { userRouter } = require('./routes/index.js');
+const { userRouter, articleRouter } = require('./routes/index.js');
 const auth = require('./middlewares/auth');
 
 const app = express();
@@ -30,11 +30,8 @@ app.post('/signup', celebrate(signupValidationOptions), createUser);
 app.post('/signin', celebrate(signinValidationOptions), login);
 app.use(auth);
 app.use('/users', userRouter);
-// --- article routes ---
+app.use('/articles', articleRouter);
 
-// --- end routes ----
-
-// --- logger and joi errors --
 app.use(errorsLogger);
 app.use(errors());
 
