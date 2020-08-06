@@ -18,7 +18,8 @@ const joiMessage = {
 };
 const statusMessage = {
   dbConnectionError: 'Невозможно установить соединение с базой данных',
-  resourseNotFoundError: 'Ресурс не найден',
+  resourceNotFoundError: 'Ресурс не найден',
+  userNotFound: 'Пользователь не найден',
   userLoginBusy: 'Этот логин занят',
   userIncorrectData: 'Переданы некорректные данные',
   userWelcomeMessage: 'Добро пожаловать <(￣︶￣)>',
