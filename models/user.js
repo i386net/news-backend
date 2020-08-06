@@ -25,11 +25,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     select: false,
   },
-  articles: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'article',
-    default: [],
-  }],
 },
 { timestamps: true });
 
