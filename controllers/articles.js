@@ -12,7 +12,7 @@ const createArticle = (req, res, next) => {
 };
 
 const getArticles = (req, res, next) => {
-  Article.find({ user: req.user._id })
+  Article.find({ owner: req.user._id })
     .then((articles) => res.send({ data: articles }))
     .catch(next);
 };
