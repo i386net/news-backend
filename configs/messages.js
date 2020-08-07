@@ -18,6 +18,7 @@ const joiMessage = {
 };
 const statusMessage = {
   dbConnectionError: 'Невозможно установить соединение с базой данных',
+  unaithorizedError: 'Необходима авторизация (凸ಠ益ಠ)凸',
   resourceNotFoundError: 'Ресурс не найден',
   userNotFound: 'Пользователь не найден',
   userLoginBusy: 'Этот логин занят',
