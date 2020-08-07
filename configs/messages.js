@@ -24,6 +24,9 @@ const statusMessage = {
   userIncorrectData: 'Переданы некорректные данные',
   userWelcomeMessage: 'Добро пожаловать <(￣︶￣)>',
   userAuthError: 'Ошибка авторизации (×﹏×)',
+  articleNotFoundError: 'Статья с этим id не найдена',
+  articleForbiddenError: 'Вы не можете удалять чужие новости! ＼(º □ º l|l)/',
+  articleDeleted: 'Успешно удалена! ＼(￣▽￣)／',
 
 };
 
