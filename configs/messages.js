@@ -27,7 +27,10 @@ const statusMessage = {
   articleNotFoundError: 'Статья с этим id не найдена',
   articleForbiddenError: 'Вы не можете удалять чужие новости! ＼(º □ º l|l)/',
   articleDeleted: 'Успешно удалена! ＼(￣▽￣)／',
-
+};
+const limiter = {
+  loginLimiter: 'Слишком много запросов с этого IP, попробуйте снова через час. (￣o￣) zzZZzzZZ',
+  apiLimiter: 'Слишком много запросов с этого IP, попробуйте снова через 15 минут. (￣o￣) zzZZzzZZ',
 };
 
-module.exports = { joiMessage, statusMessage };
+module.exports = { joiMessage, statusMessage, limiter };
