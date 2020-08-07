@@ -3,12 +3,8 @@ const { NotFoundError, ForbiddenError } = require('../errors/errors');
 const { statusMessage } = require('../configs/messages');
 
 const createArticle = (req, res, next) => {
-  const {
-    source, author, title, description, url, urlToImage, publishedAt, content,
-  } = req.body;
-  Article.create({
-    source, author, title, description, url, urlToImage, publishedAt, content, owner: req.user._id,
-  })
+  const newArticle = { ...req.body };
+  Article.create({ ...newArticle, owner: req.user._id })
     .then((article) => res.send({ data: article }))
     .catch((err) => next(err));
 };
