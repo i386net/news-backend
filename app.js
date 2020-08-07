@@ -14,6 +14,7 @@ const { createUser, login } = require('./controllers/users');
 const { statusMessage } = require('./configs/messages');
 const { userRouter, articleRouter } = require('./routes/index.js');
 const auth = require('./middlewares/auth');
+const { apiLimiter, createAccountLimiter, loginLimiter } = require('./middlewares/rateLimiter');
 
 const app = express();
 
@@ -26,10 +27,10 @@ mongoose.connect(dbAddress, dbOptions)
   .catch(() => new Error(statusMessage.dbConnectionError));
 app.use(requestsLogger);
 
-app.post('/signup', celebrate(signupValidationOptions), createUser);
-app.post('/signin', celebrate(signinValidationOptions), login);
+app.post('/signup', celebrate(signupValidationOptions), createAccountLimiter, createUser);
+app.post('/signin', celebrate(signinValidationOptions), loginLimiter, login);
 app.use(auth);
-app.use('/users', userRouter);
+app.use('/users', apiLimiter, userRouter);
 app.use('/articles', articleRouter);
 
 app.use(errorsLogger);
