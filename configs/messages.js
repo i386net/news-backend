@@ -18,7 +18,7 @@ const joiMessage = {
 };
 const statusMessage = {
   dbConnectionError: 'Невозможно установить соединение с базой данных',
-  unaithorizedError: 'Необходима авторизация (凸ಠ益ಠ)凸',
+  unauthorizedError: 'Необходима авторизация (凸ಠ益ಠ)凸',
   resourceNotFoundError: 'Ресурс не найден',
   userNotFound: 'Пользователь не найден',
   userLoginBusy: 'Этот логин занят',
@@ -29,6 +29,12 @@ const statusMessage = {
   articleForbiddenError: 'Вы не можете удалять чужие новости! ＼(º □ º l|l)/',
   articleDeleted: 'Успешно удалена! ＼(￣▽￣)／',
   articleBadRequestError: 'Некорректный формат id',
+  minLengthError: 'Минимальная длина имени 2 символа',
+  maxLengthError: 'Максимальная длина имени 30 символов',
+  wrongAuthDataError: 'Неверная почта или пароль',
+  conflictError: 'Пользователь с таким адресом уже существует.',
+  incorrectMail: ' некорректная почта',
+  incorrectURL: ' некорректная ссылка',
 };
 const limiter = {
   loginLimiter: 'Слишком много запросов с этого IP, попробуйте снова через час. (￣o￣) zzZZzzZZ',
