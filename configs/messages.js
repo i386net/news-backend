@@ -28,6 +28,7 @@ const statusMessage = {
   articleNotFoundError: 'Статья с этим id не найдена',
   articleForbiddenError: 'Вы не можете удалять чужие новости! ＼(º □ º l|l)/',
   articleDeleted: 'Успешно удалена! ＼(￣▽￣)／',
+  articleBadRequestError: 'Некорректный формат id',
 };
 const limiter = {
   loginLimiter: 'Слишком много запросов с этого IP, попробуйте снова через час. (￣o￣) zzZZzzZZ',
