@@ -6,7 +6,7 @@ const createArticle = (req, res, next) => {
   const newArticle = { ...req.body };
   Article.create({ ...newArticle, owner: req.user._id })
     .then((article) => res.send({ data: article }))
-    .catch((err) => next(err));
+    .catch(next);
 };
 
 const getArticles = (req, res, next) => {

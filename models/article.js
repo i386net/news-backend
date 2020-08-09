@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const articleSchema = new mongoose.Schema({
   source: {
-    type: String,
+    type: Object,
     required: true,
   },
   author: {
