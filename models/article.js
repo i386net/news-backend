@@ -1,35 +1,33 @@
 const mongoose = require('mongoose');
 
 const articleSchema = new mongoose.Schema({
-  source: {
-    type: Object,
-    required: true,
-  },
-  author: {
+  keyword: {
     type: String,
     required: true,
+    minlength: 2,
   },
   title: {
     type: String,
     required: true,
   },
-  description: {
+  text: {
+    type: String,
+    required: true,
+    minlength: 2,
+  },
+  link: {
     type: String,
     required: true,
   },
-  url: {
+  date: {
     type: String,
     required: true,
   },
-  urlToImage: {
+  source: {
     type: String,
     required: true,
   },
-  publishedAt: {
-    type: String,
-    required: true,
-  },
-  content: {
+  image: {
     type: String,
     required: true,
   },
@@ -37,8 +35,10 @@ const articleSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
     required: true,
+    select: false,
   },
-},
-{ timestamps: true });
+}, {
+  timestamps: true,
+});
 
 module.exports = mongoose.model('article', articleSchema);
