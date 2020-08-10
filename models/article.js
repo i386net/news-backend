@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
+const { urlValidationOptions } = require('../configs/appdata');
+const { statusMessage } = require('../configs/messages');
 
 const articleSchema = new mongoose.Schema({
   keyword: {
@@ -9,6 +12,7 @@ const articleSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
+    minlength: 2,
   },
   text: {
     type: String,
@@ -18,6 +22,10 @@ const articleSchema = new mongoose.Schema({
   link: {
     type: String,
     required: true,
+    validate: {
+      validator: (url) => validator.isURL(url, urlValidationOptions),
+      message: statusMessage.incorrectURL,
+    },
   },
   date: {
     type: String,
@@ -30,6 +38,10 @@ const articleSchema = new mongoose.Schema({
   image: {
     type: String,
     required: true,
+    validate: {
+      validator: (url) => validator.isURL(url, urlValidationOptions),
+      message: statusMessage.incorrectURL,
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
