@@ -3,12 +3,13 @@ const mongooseValidator = require('mongoose-unique-validator');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const { emailValidationOptions } = require('../configs/appdata');
+const { statusMessage } = require('../configs/messages');
 
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    minlength: [2, 'Минимальная длина имени 2 символа'],
-    maxlength: [30, 'Максимальная длина имени 30 символов'],
+    minlength: [2, statusMessage.minlength],
+    maxlength: [30, statusMessage.maxLengthError],
     required: true,
   },
   email: {
@@ -17,7 +18,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     validate: {
       validator: (email) => validator.isEmail(email, emailValidationOptions),
-      message: (props) => `${props.value} некорректная почта`,
+      message: statusMessage.incorrectMail,
     },
   },
   password: {
@@ -33,16 +34,16 @@ userSchema.statics.findUserByCredentials = function (email, password) {
     .select('+password')
     .then((user) => {
       if (!user) {
-        return Promise.reject(new Error('Неверная почта или пароль'));
+        return Promise.reject(new Error(statusMessage.wrongAuthDataError));
       }
       return bcrypt.compare(password, user.password).then((matched) => {
         if (!matched) {
-          return Promise.reject((new Error('Неверная почта или пароль')));
+          return Promise.reject((new Error(statusMessage.wrongAuthDataError)));
         }
         return user;
       });
     });
 };
-userSchema.plugin(mongooseValidator, { message: 'Пользователь с таким адресом уже существует.' });
+userSchema.plugin(mongooseValidator, { message: statusMessage.conflictError });
 
 module.exports = mongoose.model('user', userSchema);
