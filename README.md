@@ -6,8 +6,8 @@
 **Технологии**: Node.JS, Express, MongoDB, Winston
 
 ##### Адрес сервера:
-
-* `IP: 130.193.58.67`
+* `130.193.58.67`
+##### API принимает запросы по ссылкам:
 * `http://api.news.i386.me`
 * `https://api.news.i386.me`
 
@@ -19,18 +19,18 @@
 
 ## Запуск
 
-- В режиме разработки: `npm run dev` запускает сервер на `localhost:3000` с `hot realod`
-- В режиме сервера: `npm run start` запускает сервер на `localhost:3000`
+- В режиме разработки: `npm run dev`  с `hot realod`
+- В режиме сервера: `npm run start` 
 
 ## Работа с API
 
 | ЗАПРОС | ОТВЕТ | 
 | :---         |     :---       |  
-| POST `localhost:3000/signup`   | Регистрация нового пользователя     |
-| GET `localhost:3000/signin`   | Логин     |
-| PATCH `http://localhost:3000/users/me`   | Получение информации о пользователе     |
-| GET `localhost:3000/articles`   | JSON-список всех статей     | 
-| POST `localhost:3000/articles`     | Создание статьи. В ответ API должно возвращать 200 статус ответа и JSON с данными созданой статьи       | 
-| DELETE `localhost:3000/articles/5f0179c9602fb4280b465bd6`     | Удаление статьи. В ответ API должно возвращать 200 статус ответа и JSON с данными удаленной статьи       | 
+| POST `api.news.i386.me/signup`   | Регистрация нового пользователя     |
+| POST `api.news.i386.me/signin`   | Логин     |
+| GET `api.news.i386.me/users/me`   | Получение информации о пользователе     |
+| GET `api.news.i386.me/articles`   | JSON-список всех статей     | 
+| POST `api.news.i386.me/articles`     | Создание статьи. В ответ API должно возвращать 200 статус ответа и JSON с данными созданой статьи       | 
+| DELETE `api.news.i386.me/articles/5f0179c9602fb4280b465bd6`     | Удаление статьи. В ответ API должно возвращать 200 статус ответа и JSON с данными удаленной статьи       | 
 | Несуществующий адрес     | `{ "message": Сообщение об ошибке }`       | 
 
