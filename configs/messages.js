@@ -33,8 +33,8 @@ const statusMessage = {
   maxLengthError: 'Максимальная длина имени 30 символов',
   wrongAuthDataError: 'Неверная почта или пароль',
   conflictError: 'Пользователь с таким адресом уже существует.',
-  incorrectMail: ' некорректная почта',
-  incorrectURL: ' некорректная ссылка',
+  incorrectMail: (props) => `${props.value} некорректная почта`,
+  incorrectURL: (props) => `${props.value} некорректная ссылка`,
 };
 const limiter = {
   loginLimiter: 'Слишком много запросов с этого IP, попробуйте снова через час. (￣o￣) zzZZzzZZ',
