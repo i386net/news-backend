@@ -41,17 +41,28 @@ const login = (req, res, next) => User.findUserByCredentials(req.body.email, req
       httpOnly: true,
       sameSite: 'strict',
     })
-      .send({ message: statusMessage.userWelcomeMessage })
+      .send({ message: statusMessage.userWelcomeMessage, name: user.name })
       .end();
   })
   .catch(() => next(new UnauthorizedError(statusMessage.userAuthError)));
 
+const logout = (req, res) => {
+  res.cookie('jwt', '', {
+    maxAge: 1,
+    httpOnly: true,
+    sameSite: 'strict',
+  })
+    .send({ message: 'Logged out' })
+    .end();
+};
+
 const getUser = (req, res, next) => {
-  console.log();
   User.findById(req.user._id)
     .orFail(new NotFoundError(statusMessage.userNotFound))
     .then((user) => res.send({ name: user.name, email: user.email }))
     .catch(next);
 };
 
-module.exports = { createUser, login, getUser };
+module.exports = {
+  createUser, login, getUser, logout,
+};
