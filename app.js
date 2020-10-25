@@ -26,29 +26,29 @@ const {
   DB_HOST = 'mongodb://localhost:27017/newsdb',
 } = process.env;
 
-// const allowedCors = [
-//   'http://localhost:8080',
-//   'http://i386net.github.io',
-//   'https://i386net.github.io',
-//   'http://news.i386.me',
-//   'https://news.i386.me',
-// ];
+const allowedCors = [
+  'http://localhost:8080',
+  'http://i386net.github.io',
+  'https://i386net.github.io',
+  'http://news.i386.me',
+  'https://news.i386.me',
+];
 
 const app = express();
 
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     if (allowedCors.includes(origin) || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   },
-//   credentials: true,
-// };
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedCors.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+};
 
-// app.use(cors(corsOptions));
-app.use(cors());
+app.use(cors(corsOptions));
+// app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
