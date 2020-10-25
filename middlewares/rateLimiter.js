@@ -9,13 +9,13 @@ const apiLimiter = rateLimit({
 
 const createAccountLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1h
-  max: 10, // 10 reqs
+  max: 1000, // 10 reqs
   message: limiter.loginLimiter,
 });
 
 const loginLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1h
-  max: 10,
+  max: 1000,
   message: limiter.loginLimiter,
 });
 
