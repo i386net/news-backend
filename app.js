@@ -5,7 +5,7 @@ const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { celebrate, errors } = require('celebrate');
-const cookeParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const {
   dbOptions, signupValidationOptions, signinValidationOptions,
 } = require('./configs/appdata.js');
@@ -46,13 +46,12 @@ const corsOptions = {
   },
   credentials: true,
 };
-
+app.use(cookieParser());
 app.use(cors(corsOptions));
 // app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookeParser());
 mongoose.connect(DB_HOST, dbOptions)
   .then(() => console.log(`${timestamp} DB connection on: ${DB_HOST}`))
   .catch(() => new Error(statusMessage.dbConnectionError));
