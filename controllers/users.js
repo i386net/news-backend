@@ -44,7 +44,8 @@ const login = (req, res, next) => User.findUserByCredentials(req.body.email, req
       .send({ message: statusMessage.userWelcomeMessage, name: user.name })
       .end();
   })
-  .catch(() => next(new UnauthorizedError(statusMessage.userAuthError)));
+  // .catch(() => next(new UnauthorizedError(statusMessage.userAuthError)));
+  .catch((err) => next(err));
 
 const logout = (req, res) => {
   res.cookie('jwt', '', {
