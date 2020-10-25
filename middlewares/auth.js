@@ -4,7 +4,6 @@ const { UnauthorizedError } = require('../errors/errors');
 const { statusMessage } = require('../configs/messages');
 
 module.exports = (req, res, next) => {
-  console.log(req);
   if (!req.cookies.jwt) {
     return next(new UnauthorizedError(statusMessage.unauthorizedError));
   }
