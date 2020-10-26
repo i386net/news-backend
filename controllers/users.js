@@ -39,7 +39,8 @@ const login = (req, res, next) => User.findUserByCredentials(req.body.email, req
     res.cookie('jwt', token, {
       maxAge: 3600000 * 24 * 7,
       httpOnly: true,
-      sameSite: 'none',
+      // sameSite: 'none',
+      SameSite: 'none',
       secure: true,
     })
       .send({ message: statusMessage.userWelcomeMessage, name: user.name })
