@@ -35,15 +35,25 @@ const createUser = (req, res, next) => {
 
 const login = (req, res, next) => User.findUserByCredentials(req.body.email, req.body.password)
   .then((user) => {
+    const agent = req.headers['user-agent'];
     const token = jwt.sign({ _id: user._id }, key, { expiresIn: '7d' });
-    res.cookie('jwt', token, {
-      maxAge: 3600000 * 24 * 7,
-      httpOnly: true,
-      sameSite: 'none',
-      secure: true,
-    })
-      .send({ message: statusMessage.userWelcomeMessage, name: user.name })
-      .end();
+    if (agent.match('Version\\/.* Safari\\/')) {
+      res.cookie('jwt', token, {
+        maxAge: 3600000 * 24 * 7,
+        httpOnly: true,
+      })
+        .send({ message: statusMessage.userWelcomeMessage, name: user.name })
+        .end();
+    } else {
+      res.cookie('jwt', token, {
+        maxAge: 3600000 * 24 * 7,
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true,
+      })
+        .send({ message: statusMessage.userWelcomeMessage, name: user.name })
+        .end();
+    }
   })
   .catch(() => next(new UnauthorizedError(statusMessage.userAuthError)));
 
