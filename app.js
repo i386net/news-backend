@@ -30,8 +30,6 @@ const allowedCors = [
   'http://localhost:8080',
   'http://i386net.github.io',
   'https://i386net.github.io',
-  'http://news.i386.me',
-  'https://news.i386.me',
 ];
 
 const app = express();
@@ -48,7 +46,6 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(cookieParser());
-// app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
