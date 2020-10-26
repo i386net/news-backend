@@ -40,6 +40,7 @@ const login = (req, res, next) => User.findUserByCredentials(req.body.email, req
       maxAge: 3600000 * 24 * 7,
       // httpOnly: true,
       sameSite: 'none',
+      secure: false,
     })
       .send({ message: statusMessage.userWelcomeMessage, name: user.name })
       .end();
